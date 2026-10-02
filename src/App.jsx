@@ -43,6 +43,7 @@ const MILESTONE_THRESHOLDS = [1, 10, 25, 50];
 export default function App() {
   const [isNight, setIsNight] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [allPetTrigger, setAllPetTrigger] = useState(0);
   const [petCounts, setPetCounts] = useState({
     pippo: 0,
     luna: 0,
@@ -104,6 +105,9 @@ export default function App() {
   const handlePetAll = useCallback(() => {
     playCelebration(soundEnabled);
 
+    // Trigger cuddle animation & speech bubbles on all penguins!
+    setAllPetTrigger((prev) => prev + 1);
+
     // Boost count for all penguins
     setPetCounts((prev) => ({
       pippo: prev.pippo + 1,
@@ -147,7 +151,7 @@ export default function App() {
           </div>
 
           <div className="penguins-grid">
-            {INITIAL_PENGUINS.map((p) => (
+            {INITIAL_PENGUINS.map((p, index) => (
               <Penguin
                 key={p.id}
                 id={p.id}
@@ -158,6 +162,8 @@ export default function App() {
                 petCount={petCounts[p.id]}
                 onPet={handlePetPenguin}
                 soundEnabled={soundEnabled}
+                allPetTrigger={allPetTrigger}
+                animationDelay={index * 80}
               />
             ))}
           </div>

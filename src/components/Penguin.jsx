@@ -21,19 +21,17 @@ export function Penguin({
   petCount,
   onPet,
   soundEnabled,
+  allPetTrigger = 0,
+  animationDelay = 0,
 }) {
   const [isPetting, setIsPetting] = useState(false);
   const [reaction, setReaction] = useState(null);
   const [localHearts, setLocalHearts] = useState([]);
   const heartIdCounter = useRef(0);
   const timeoutRef = useRef(null);
+  const isFirstMount = useRef(true);
 
-  const handleClick = (e) => {
-    // Get click position relative to the penguin card for precise heart burst
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX ? e.clientX - rect.left : rect.width / 2;
-    const y = e.clientY ? e.clientY - rect.top : rect.height / 2;
-
+  const triggerPet = (coords = null) => {
     setIsPetting(true);
 
     // Pick random reaction phrase
@@ -41,11 +39,15 @@ export function Penguin({
       REACTION_PHRASES[Math.floor(Math.random() * REACTION_PHRASES.length)];
     setReaction(randomPhrase);
 
-    // Add 3-5 floating hearts with slight random angle & offset
-    const newHearts = Array.from({ length: 4 }).map((_, i) => ({
+    // Coordinate origin for hearts
+    const x = coords ? coords.x : 100;
+    const y = coords ? coords.y : 90;
+
+    // Add 4-5 floating hearts with slight random angle & offset
+    const newHearts = Array.from({ length: 5 }).map((_, i) => ({
       id: `${Date.now()}-${heartIdCounter.current++}-${i}`,
-      x: x + (Math.random() * 40 - 20),
-      y: y + (Math.random() * 20 - 10),
+      x: x + (Math.random() * 50 - 25),
+      y: y + (Math.random() * 30 - 15),
       scale: Math.random() * 0.6 + 0.8,
       rotation: Math.random() * 40 - 20,
       color: ['#ff4d88', '#ff2e63', '#ff7597', '#ff85a2', '#f368e0'][
@@ -55,25 +57,46 @@ export function Penguin({
 
     setLocalHearts((prev) => [...prev, ...newHearts]);
 
-    // Parent callback
-    onPet(id, e);
-
     // Clear active petting state
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       setIsPetting(false);
-    }, 700);
+    }, 750);
 
     // Remove old local hearts after animation
     setTimeout(() => {
       setLocalHearts((prev) => prev.filter((h) => !newHearts.includes(h)));
     }, 1200);
 
-    // Fade reaction bubble after 1.4s
+    // Fade reaction bubble after 1.5s
     setTimeout(() => {
       setReaction((current) => (current === randomPhrase ? null : current));
     }, 1500);
   };
+
+  const handleClick = (e) => {
+    // Get click position relative to the penguin card for precise heart burst
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX ? e.clientX - rect.left : rect.width / 2;
+    const y = e.clientY ? e.clientY - rect.top : rect.height / 2;
+
+    triggerPet({ x, y });
+    onPet(id, e);
+  };
+
+  // Listen to external 'Alle Pinguine knuddeln' trigger
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    if (allPetTrigger > 0) {
+      const delayTimer = setTimeout(() => {
+        triggerPet();
+      }, animationDelay);
+      return () => clearTimeout(delayTimer);
+    }
+  }, [allPetTrigger, animationDelay]);
 
   useEffect(() => {
     return () => {
