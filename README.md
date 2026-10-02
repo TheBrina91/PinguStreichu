@@ -1,16 +1,51 @@
-# React + Vite
+# 🐧 Pinguin-Paradies: "Hallo Welt!"
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Eine interaktive, herzerwärmende React-Website zum Streicheln von niedlichen Pinguinen mit fliegenden Herzchen, sanften Soundeffekten und Polarlicht-Atmosphäre.
 
-Currently, two official plugins are available:
+🌐 **Live Demo:** [https://TheBrina91.github.io/PinguStreichu/](https://TheBrina91.github.io/PinguStreichu/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Niedliche interaktive Pinguine:**
+  - **Pippo:** Der verspielte Baby-Pinguin mit Mütze (hohe süße Pieps-Stimme)
+  - **Luna:** Die kuschlige Träumerin mit Schal (sanftes Spieluhren-Glockenspiel)
+  - **Sir Barnaby:** Der edle Frackträger mit Fliege & Zylinder (vornehmer Wasserblasen-Bloop)
+  - **Cookie:** Der kleine Wirbelwind mit Ohrenschützern (verschnurrtes Quietsch-Gurgeln)
+- **Streichel-Physik & Animationen:**
+  - Sanfter Squash-and-Stretch Effekt beim Klick
+  - Schwingende Flügelchen und glühende Bäckchen
+  - Zufällige, liebevolle Sprechblasen (*„Piiiep! 🥰“*, *„Sooo flauschig! ✨“*, *„Kuschelzeit! ❤️“*)
+- **Fliegende Herzen:**
+  - Partikelsystem für aufsteigende Herzen direkt an der Klickposition
+  - Festlicher Konfetti-Regen bei Milestones und beim *„Alle Pinguine knuddeln!“*-Button
+- **Ultra-süße Soundeffekte (Web Audio API):**
+  - Synthetisierte, samtweiche Kawaii-Töne ohne externe MP3-Dateien
+  - Kristallenes Feenstaub-Glöckchen bei jedem Herz
+  - Stummschalt-Schalter jederzeit verfügbar
+- **Atmosphäre & Design:**
+  - Umschaltbar zwischen **Polarlicht-Nacht** 🌌 und **Sonnigem Eistag** ☀️
+  - Sanft fallende Schneeflocken und dynamische Aurora-Lichter
+  - Modernes Glassmorphism-Design mit Google Fonts (`Fredoka` & `Outfit`)
+- **Automatisches GitHub Pages Deployment:**
+  - CI/CD-Pipeline via GitHub Actions (`.github/workflows/deploy.yml`)
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 🚀 Lokale Entwicklung
+
+```bash
+# Abhängigkeiten installieren
+npm install
+
+# Entwicklungsserver starten
+npm run dev
+
+# Produktions-Build erstellen
+npm run build
+```
+
+---
+
+Gemacht mit ❤️ und React!
